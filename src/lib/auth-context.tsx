@@ -24,18 +24,15 @@ type AuthContextValue = {
   signup: (input: SignupInput) => Promise<{ devOtp: string | undefined }>;
   logout: () => void;
   updateProfile: (name: string) => Promise<void>;
-  requestOtp: (email: string, purpose: "verify" | "reset") => Promise<{ devOtp: string | undefined }>;
+  requestOtp: (
+    email: string,
+    purpose: "verify" | "reset",
+  ) => Promise<{ devOtp: string | undefined }>;
   verifyEmail: (email: string, code: string) => Promise<void>;
   resetPassword: (email: string, code: string, newPassword: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextValue | undefined>(undefined);
-
-// ---------------------------------------------------------------------------
-// Talks to the real backend (Node.js/Express + PostgreSQL) via src/lib/api.ts.
-// A JWT is stored in localStorage (see api.ts) and sent as a Bearer token on
-// every authenticated request.
-// ---------------------------------------------------------------------------
 
 export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<AuthUser | null>(null);

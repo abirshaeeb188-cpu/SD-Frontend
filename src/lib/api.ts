@@ -1,7 +1,3 @@
-// Thin fetch wrapper around the Node.js/Express + PostgreSQL backend.
-// Base URL comes from VITE_API_URL (see .env.example); falls back to
-// localhost:5000 for local development.
-
 const API_BASE_URL =
   (import.meta.env["VITE_API_URL"] as string | undefined) || "http://localhost:5000/api";
 
@@ -60,10 +56,6 @@ async function request<T>(
   return data as T;
 }
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
-
 export type ApiUser = {
   id: string;
   name: string;
@@ -80,60 +72,48 @@ export type Review = {
   date: string;
 };
 
-// ---------------------------------------------------------------------------
-// Auth endpoints
-// ---------------------------------------------------------------------------
-
 export function apiSignup(input: { name: string; email: string; phone: string; password: string }) {
-  return request<{ message: string; devOtp?: string }>("/auth/signup", {
+  return request<{ message: string; devOtp?: string }>("/api/auth/signup", {
     method: "POST",
     body: input,
   });
 }
 
 export function apiRequestOtp(email: string, purpose: "verify" | "reset") {
-  return request<{ message: string; devOtp?: string }>("/auth/request-otp", {
+  return request<{ message: string; devOtp?: string }>("/api/auth/request-otp", {
     method: "POST",
     body: { email, purpose },
   });
 }
 
 export function apiVerifyEmail(email: string, code: string) {
-  return request<{ token: string; user: ApiUser }>("/auth/verify-email", {
+  return request<{ token: string; user: ApiUser }>("/api/auth/verify-email", {
     method: "POST",
     body: { email, code },
   });
 }
 
 export function apiLogin(email: string, password: string) {
-  return request<{ token: string; user: ApiUser }>("/auth/login", {
+  return request<{ token: string; user: ApiUser }>("/api/auth/login", {
     method: "POST",
     body: { email, password },
   });
 }
 
 export function apiResetPassword(email: string, code: string, newPassword: string) {
-  return request<{ message: string }>("/auth/reset-password", {
+  return request<{ message: string }>("/api/auth/reset-password", {
     method: "POST",
     body: { email, code, newPassword },
   });
 }
 
-// ---------------------------------------------------------------------------
-// User endpoints
-// ---------------------------------------------------------------------------
-
 export function apiGetMe() {
-  return request<{ user: ApiUser }>("/users/me", { auth: true });
+  return request<{ user: ApiUser }>("/api/users/me", { auth: true });
 }
 
 export function apiUpdateMe(input: { name: string }) {
-  return request<{ user: ApiUser }>("/users/me", { method: "PUT", body: input, auth: true });
+  return request<{ user: ApiUser }>("/api/users/me", { method: "PUT", body: input, auth: true });
 }
-
-// ---------------------------------------------------------------------------
-// Contact form
-// ---------------------------------------------------------------------------
 
 export function apiSendContactMessage(input: {
   name: string;
@@ -142,17 +122,13 @@ export function apiSendContactMessage(input: {
   material: string;
   message: string;
 }) {
-  return request<{ message: string }>("/contact", { method: "POST", body: input });
+  return request<{ message: string }>("/api/contact", { method: "POST", body: input });
 }
 
-// ---------------------------------------------------------------------------
-// Review endpoints
-// ---------------------------------------------------------------------------
-
 export function apiListReviews() {
-  return request<{ reviews: Review[]; average: number }>("/reviews");
+  return request<{ reviews: Review[]; average: number }>("/api/reviews");
 }
 
 export function apiCreateReview(input: { rating: number; title: string; message: string }) {
-  return request<{ review: Review }>("/reviews", { method: "POST", body: input, auth: true });
+  return request<{ review: Review }>("/api/reviews", { method: "POST", body: input, auth: true });
 }
