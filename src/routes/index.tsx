@@ -24,33 +24,91 @@ export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title },
-      { name: "description", content: description },
-      { property: "og:title", content: title },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { property: "og:url", content: "/" },
-      { name: "twitter:card", content: "summary_large_image" },
+
+      {
+        name: "description",
+        content: description,
+      },
+
+      {
+        property: "og:title",
+        content: title,
+      },
+
+      {
+        property: "og:description",
+        content: description,
+      },
+
+      {
+        property: "og:type",
+        content: "website",
+      },
+
+      {
+        property: "og:url",
+        content: "https://www.spsandandgravel.com/",
+      },
+
+      {
+        property: "og:site_name",
+        content: site.name,
+      },
+
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+
+      {
+        name: "twitter:title",
+        content: title,
+      },
+
+      {
+        name: "twitter:description",
+        content: description,
+      },
     ],
-    links: [{ rel: "canonical", href: "/" }],
+
+    links: [
+      {
+        rel: "canonical",
+        href: "https://www.spsandandgravel.com/",
+      },
+    ],
+
     scripts: [
       {
         type: "application/ld+json",
         children: JSON.stringify({
           "@context": "https://schema.org",
           "@type": "LocalBusiness",
+
           name: site.name,
+
           description:
             "Supplier of sand, gravel, aggregates and construction materials in Abu Dhabi and the UAE.",
+
           telephone: site.phone,
+
           email: site.email,
-          openingHours: "Mo-Su 00:00-23:59",
+
+          url: "https://www.spsandandgravel.com/",
+
           address: {
             "@type": "PostalAddress",
             streetAddress: "Mussafah Industrial Area",
             addressLocality: "Abu Dhabi",
             addressCountry: "AE",
           },
-          areaServed: ["Abu Dhabi", "Mussafah", "Abu Dhabi Industrial City", "United Arab Emirates"],
+
+          areaServed: [
+            "Abu Dhabi",
+            "Mussafah",
+            "Abu Dhabi Industrial City",
+            "United Arab Emirates",
+          ],
         }),
       },
     ],

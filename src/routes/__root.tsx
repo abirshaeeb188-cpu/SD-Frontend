@@ -78,31 +78,96 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
   head: () => ({
     meta: [
       { charSet: "utf-8" },
-      { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Sand and Gravel Concrete Supply" },
+      {
+        name: "viewport",
+        content: "width=device-width, initial-scale=1",
+      },
+
+      {
+        title: "Sand & Gravel Supplier in Abu Dhabi | SP Sand & Gravel",
+      },
+
       {
         name: "description",
         content:
-          "Supplier of sand, gravel, aggregates and construction materials in Abu Dhabi and the UAE.",
+          "SP Sand & Gravel is a sand, gravel and construction materials supplier in Abu Dhabi, UAE. We supply quality aggregates, sand, gravel and road base materials.",
       },
-      { name: "author", content: "SAND AND GRAVEL CONCRETE SUPPLY" },
-      { property: "og:site_name", content: "SAND AND GRAVEL CONCRETE SUPPLY" },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-      { name: "theme-color", content: "#0d1b30" },
+
+      {
+        name: "author",
+        content: "SP Sand & Gravel",
+      },
+
+      // Open Graph
+      {
+        property: "og:title",
+        content: "Sand & Gravel Supplier in Abu Dhabi | SP Sand & Gravel",
+      },
+      {
+        property: "og:description",
+        content: "Sand, gravel, aggregates and construction materials supplier in Abu Dhabi, UAE.",
+      },
+      {
+        property: "og:type",
+        content: "website",
+      },
+      {
+        property: "og:url",
+        content: "https://www.spsandandgravel.com/",
+      },
+      {
+        property: "og:site_name",
+        content: "SP Sand & Gravel",
+      },
+
+      // Twitter / social sharing
+      {
+        name: "twitter:card",
+        content: "summary_large_image",
+      },
+      {
+        name: "twitter:title",
+        content: "Sand & Gravel Supplier in Abu Dhabi | SP Sand & Gravel",
+      },
+      {
+        name: "twitter:description",
+        content: "Sand, gravel, aggregates and construction materials supplier in Abu Dhabi, UAE.",
+      },
+
+      {
+        name: "theme-color",
+        content: "#0d1b30",
+      },
     ],
+
     links: [
+      {
+        rel: "canonical",
+        href: "https://www.spsandandgravel.com/",
+      },
+
       { rel: "preconnect", href: "https://fonts.googleapis.com" },
-      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
+      {
+        rel: "preconnect",
+        href: "https://fonts.gstatic.com",
+        crossOrigin: "anonymous",
+      },
+
       {
         rel: "stylesheet",
         href: "https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap",
       },
+
       {
         rel: "stylesheet",
         href: appCss,
       },
-      { rel: "icon", href: "/favicon.png", type: "image/x-icon" },
+
+      {
+        rel: "icon",
+        href: "/favicon.png",
+        type: "image/png",
+      },
     ],
   }),
   shellComponent: RootShell,
