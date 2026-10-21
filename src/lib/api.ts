@@ -1,5 +1,6 @@
+const configuredApiBaseUrl = (import.meta.env["VITE_API_URL"] as string | undefined)?.trim();
 const API_BASE_URL =
-  (import.meta.env["VITE_API_URL"] as string | undefined) || "http://localhost:5000/api";
+  configuredApiBaseUrl || (import.meta.env.DEV ? "http://localhost:5000" : "");
 
 const TOKEN_KEY = "sgcs_auth_token";
 
@@ -33,6 +34,10 @@ async function request<T>(
   options: { method?: string; body?: unknown; auth?: boolean } = {},
 ): Promise<T> {
   const { method = "GET", body, auth = false } = options;
+
+  if (!API_BASE_URL) {
+    throw new ApiError(0, "The API service is not configured. Please try again later.");
+  }
 
   const headers: Record<string, string> = { "Content-Type": "application/json" };
   if (auth) {
